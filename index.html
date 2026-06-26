@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>Rachel · 第一节线上颈椎康复课程</title>
+<style>
+:root{--primary:#4caf50;--primary-light:#66bb6a;--primary-lighter:#c8e6c9;--primary-bg:#e8f5e9;--accent:#ff9800;--accent-light:#ffe0b2;--text:#2e7d32;--text-secondary:#388e3c;--text-muted:#81c784;--bg:#f5f5f5;--card-bg:#fff;--border:#c8e6c9}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.container{max-width:720px;margin:0 auto;padding:0 16px 100px}
+header{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;padding:20px 16px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+header h1{font-size:1.25rem;font-weight:700;margin-bottom:4px}
+header .subtitle{font-size:.85rem;opacity:.9}
+.progress-bar{display:flex;margin:16px 0;gap:4px}
+.progress-bar .seg{flex:1;height:8px;background:var(--primary-lighter);border-radius:4px;transition:background .3s}
+.progress-bar .seg.active{background:var(--primary)}
+.progress-bar .seg.done{background:var(--primary)}
+.progress-labels{display:flex;justify-content:space-between;font-size:.7rem;color:var(--text-muted);margin-bottom:12px;padding:0 2px}
+.step-page{display:none}
+.step-page.active{display:block}
+.step-page h2{font-size:1.15rem;color:var(--text);margin:16px 0 8px}
+.step-page .step-sub{font-size:.85rem;color:var(--text-secondary);margin-bottom:16px}
+.card{margin-bottom:14px;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.eval-card{background:var(--card-bg);border:1px solid var(--border);padding:14px}
+.eval-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.eval-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--accent-light);color:var(--accent);font-weight:700;font-size:.85rem;flex-shrink:0}
+.eval-card h3{font-size:1rem;color:var(--text);font-weight:600}
+.steps-list{margin:0 0 10px 18px;font-size:.85rem;color:var(--text-secondary);line-height:1.7}
+.steps-list li{margin-bottom:2px}
+.record-row{display:flex;flex-direction:column;gap:6px}
+.record-row label{font-size:.8rem;font-weight:600;color:var(--text)}
+.record-row textarea{width:100%;min-height:50px;border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:.82rem;font-family:inherit;resize:vertical;color:var(--text);background:var(--primary-bg)}
+.technique-card{background:linear-gradient(135deg,#fff8e1,#fff3e0);border:1px solid var(--accent-light);padding:14px;border-radius:12px}
+.exercise-card{background:var(--card-bg);border:1px solid var(--border);padding:14px;border-radius:12px}
+.timer-row{display:flex;align-items:center;gap:8px;margin:10px 0}
+.timer-display{font-size:1.5rem;font-weight:700;font-family:"SF Mono",Menlo,monospace;color:var(--text);min-width:64px;text-align:center}
+.timer-display.warning{color:#e53935;animation:blink .5s infinite}
+@keyframes blink{50%{opacity:.3}}
+.btn{font-size:.78rem;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;font-weight:600;transition:all .15s}
+.btn-start{background:var(--primary);color:#fff}
+.btn-start:active{background:var(--primary-light)}
+.btn-reset{background:#e0e0e0;color:#555}
+.btn-reset:active{background:#bdbdbd}
+.card h4{font-size:.95rem;color:var(--text);margin-bottom:6px}
+.tag{display:inline-block;font-size:.7rem;padding:3px 8px;border-radius:10px;font-weight:600;margin-right:4px;margin-bottom:4px}
+.tag-eval{background:#e3f2fd;color:#1565c0}
+.tag-release{background:var(--accent-light);color:#e65100}
+.tag-purple{background:#e8eaf6;color:#3949ab}
+.tag-blue{background:#e3f2fd;color:#1565c0}
+.tag-green{background:#e8f5e9;color:#2e7d32}
+.tag-warm{background:#fff3e0;color:#e65100}
+.effect{font-size:.78rem;color:var(--text-muted);font-style:italic;margin-top:8px;padding:8px 10px;background:rgba(255,255,255,.6);border-radius:6px}
+.effect strong{color:var(--accent)}
+nav.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card-bg);display:flex;border-top:1px solid var(--border);z-index:100;box-shadow:0 -2px 8px rgba(0,0,0,.08);max-width:720px;margin:0 auto}
+nav.bottom-nav button{flex:1;padding:14px 8px;border:none;background:none;font-size:.82rem;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s}
+nav.bottom-nav button.active{color:var(--primary);border-top:3px solid var(--primary);background:var(--primary-bg)}
+nav.bottom-nav button:active{background:var(--primary-lighter)}
+</style>
+</head>
+<body>
+<header>
+<h1>Rachel · 第一节线上课程</h1>
+<div class="subtitle">评估 · 松解 · 训练（首节课 55-60 分钟）</div>
+</header>
+<div class="container">
+<div class="progress-bar" style="margin-top:12px">
+<div class="seg active" id="seg1"></div><div class="seg" id="seg2"></div><div class="seg" id="seg3"></div>
+</div>
+<div class="progress-labels"><span>评估(15-20min)</span><span>松解(~10min)</span><span>训练(~30min)</span></div>
+<!-- ===== STEP 1: 评估 ===== -->
+<div class="step-page active" id="step1">
+<h2>Step 1 · 线上评估</h2>
+<p class="step-sub">请准备好：瑜伽垫/床、一面墙、手机计时器</p>
+
+<div class="card eval-card">
+<div class="eval-head"><span class="eval-num">1</span><h3>颈椎旋转活动度</h3></div>
+<ol class="steps-list"><li>坐姿，缓慢向左转头至受限停</li><li>缓慢向右转头至受限停</li><li>对比左右旋转幅度</li></ol>
+<div class="record-row"><label>你记录：</label><textarea placeholder="左转___度（是否受限？），右转___度（是否受限？），哪侧更受限？"></textarea></div>
+</div>
+
+<div class="card eval-card">
+<div class="eval-head"><span class="eval-num">2</span><h3>头后仰症状</h3></div>
+<ol class="steps-list"><li>坐姿，头微微后仰</li><li>感受是否有眩晕、不稳感</li></ol>
+<div class="record-row"><label>你记录：</label><textarea placeholder="是否诱发眩晕？（1-5分打分）"></textarea></div>
+</div>
+
+<div class="card eval-card">
+<div class="eval-head"><span class="eval-num">3</span><h3>颈部肌力</h3></div>
+<ol class="steps-list"><li>平躺，收下巴，脖子略抬起离开床面</li><li>保持此姿势，记录坚持秒数</li></ol>
+<div class="record-row"><label>你记录：</label><textarea placeholder="能坚持几秒？目标10秒以上"></textarea></div>
+</div>
+
+<div class="card eval-card">
+<div class="eval-head"><span class="eval-num">4</span><h3>肩胛稳定性 — 靠墙天使</h3></div>
+<ol class="steps-list"><li>靠墙站立，后脑勺、肩胛、臀、脚跟贴墙</li><li>双臂做W形→Y形上滑（天使翅膀动作）</li><li>观察肩胛骨是否离开墙面</li></ol>
+<div class="record-row"><label>你记录：</label><textarea placeholder="后脑勺/肩胛/臀/脚跟是否都能贴墙？手臂上滑时肩胛是否离开墙面？几处离开？"></textarea></div>
+</div>
+
+<div class="card eval-card">
+<div class="eval-head"><span class="eval-num">5</span><h3>核心控制 — 死虫式</h3></div>
+<ol class="steps-list"><li>仰卧，抬起四肢呈桌面姿势</li><li>对侧手脚同时缓慢下放（右手+左脚下放）</li><li>观察腰部是否紧贴地面</li></ol>
+<div class="record-row"><label>你记录：</label><textarea placeholder="腰部是否紧贴地面？对侧控制是否稳定？"></textarea></div>
+</div>
+
+<div class="card eval-card">
+<div class="eval-head"><span class="eval-num">6</span><h3>体态观察</h3></div>
+<ol class="steps-list"><li>侧面站立，自然放松</li><li>观察耳垂与肩峰连线（铅垂线参考）</li><li>平躺观察肩胛骨是否贴合地面</li></ol>
+<div class="record-row"><label>你记录：</label><textarea placeholder="是否有头前倾？（耳垂-肩峰连线），平躺肩胛骨是否贴合地面？"></textarea></div>
+</div>
+
+<div class="card eval-card">
+<div class="eval-head"><span class="eval-num">7</span><h3>前庭 — 单腿站立</h3></div>
+<ol class="steps-list"><li>闭眼，双手叉腰，单腿站立</li><li>先左腿，后右腿，各一次</li><li>记录坚持时间与摇晃程度</li></ol>
+<div class="record-row"><label>你记录：</label><textarea placeholder="左腿___秒，右腿___秒，有无摇晃？"></textarea></div>
+</div>
+
+<div class="card eval-card">
+<div class="eval-head"><span class="eval-num">8</span><h3>前庭 — 转圈</h3></div>
+<ol class="steps-list"><li>闭眼，原地缓慢转一圈</li><li>先向左转，后向右转，各一次</li><li>感受转后眩晕程度</li></ol>
+<div class="record-row"><label>你记录：</label><textarea placeholder="转后是否更晕？左右有无差异？"></textarea></div>
+</div>
+
+<div class="card eval-card">
+<div class="eval-head"><span class="eval-num">9</span><h3>症状触发</h3></div>
+<ol class="steps-list"><li>快速从坐到站，重复3次</li><li>观察是否诱发头晕或不稳感</li></ol>
+<div class="record-row"><label>你记录：</label><textarea placeholder="是否诱发头晕/不稳？（1-5分打分）"></textarea></div>
+</div>
+</div>
+
+<!-- ===== STEP 2: 松解 ===== -->
+<div class="step-page" id="step2">
+<h2>Step 2 · 松解</h2>
+<div class="card technique-card"><h4>1. 枕下肌群筋膜球松解（2分钟） <span class="tag tag-release">枕下肌群</span></h4>
+<ol class="steps-list"><li>平躺，双联筋膜球卡在枕骨下缘凹陷处</li><li>闭眼放松，下巴微收</li><li>做毫米级微小点头动作，利用头部自重压揉</li></ol>
+<div class="timer-row"><div class="timer-display" id="timer1">02:00</div>
+<button class="btn btn-start" onclick="startTimer('timer1',120)">开始</button>
+<button class="btn btn-reset" onclick="resetTimer('timer1',120)">重置</button></div>
+<div class="effect"><strong>作用：</strong>头晕核心原因——松解枕下肌群降低上颈椎关节张力</div></div>
+
+<div class="card technique-card"><h4>2. 胸锁乳突肌筋膜球松解（2分钟） <span class="tag tag-release">胸锁乳突肌</span></h4>
+<ol class="steps-list"><li>侧卧，筋膜球放在耳垂下方胸锁乳突肌位置</li><li>缓慢上下移动寻找压痛点</li><li>找到压痛点维持20-30秒</li><li>左右各1分钟</li></ol>
+<div class="timer-row"><div class="timer-display" id="timer2">02:00</div>
+<button class="btn btn-start" onclick="startTimer('timer2',120)">开始</button>
+<button class="btn btn-reset" onclick="resetTimer('timer2',120)">重置</button></div>
+<div class="effect"><strong>作用：</strong>头前倾+旋转受限核心因素</div></div>
+
+<div class="card technique-card"><h4>3. 胸小肌筋膜球松解（2分钟） <span class="tag tag-release">胸小肌</span></h4>
+<ol class="steps-list"><li>靠墙站立，筋膜球放在锁骨下方胸小肌位置</li><li>身体缓慢上下移动寻找压痛点</li><li>找到压痛点维持20-30秒</li><li>左右各1分钟</li></ol>
+<div class="timer-row"><div class="timer-display" id="timer3">02:00</div>
+<button class="btn btn-start" onclick="startTimer('timer3',120)">开始</button>
+<button class="btn btn-reset" onclick="resetTimer('timer3',120)">重置</button></div>
+<div class="effect"><strong>作用：</strong>改善头前倾和肩膀回缩</div></div>
+
+<div class="card technique-card"><h4>4. 门框胸大肌拉伸（2分钟） <span class="tag tag-release">胸大肌</span></h4>
+<ol class="steps-list"><li>站门框旁，前臂贴门框，肘与肩同高</li><li>身体微前倾感受拉伸</li><li>保持躯干正直不耸肩</li><li>维持30秒x4次</li></ol>
+<div class="timer-row"><div class="timer-display" id="timer4">02:00</div>
+<button class="btn btn-start" onclick="startTimer('timer4',120)">开始</button>
+<button class="btn btn-reset" onclick="resetTimer('timer4',120)">重置</button></div>
+<div class="effect"><strong>作用：</strong>打开被压缩的胸廓</div></div>
+
+<div class="card technique-card"><h4>5. 斜方肌上束拉伸（2分钟） <span class="tag tag-release">斜方肌上束</span></h4>
+<ol class="steps-list"><li>坐姿，头向右侧偏（右耳靠近右肩），右手轻压左侧头部</li><li>感受左侧斜方肌拉伸</li><li>维持30秒，换侧</li><li>左右各2次</li></ol>
+<div class="timer-row"><div class="timer-display" id="timer5">02:00</div>
+<button class="btn btn-start" onclick="startTimer('timer5',120)">开始</button>
+<button class="btn btn-reset" onclick="resetTimer('timer5',120)">重置</button></div>
+<div class="effect"><strong>作用：</strong>缓解左侧旋转受限</div></div>
+</div>
+
+<!-- ===== STEP 3: 训练 ===== -->
+<div class="step-page" id="step3">
+<h2>Step 3 · 训练</h2>
+
+<div class="card exercise-card"><h4>1. 9090呼吸（3分钟）<span class="tag tag-warm">交感神经</span></h4>
+<ol class="steps-list"><li>仰卧双腿屈膝90度踩墙</li><li>鼻吸气4秒让肚子鼓起来，嘴吐气8秒，屏息3秒</li><li>重复8-10次</li></ol>
+<div class="timer-row"><div class="timer-display" id="timer6">03:00</div>
+<button class="btn btn-start" onclick="startTimer('timer6',180)">开始</button>
+<button class="btn btn-reset" onclick="resetTimer('timer6',180)">重置</button></div>
+<div class="effect"><strong>作用：</strong>激活副交感神经，降低交感张力，为后续训练打底</div></div>
+
+<div class="card exercise-card"><h4>2. 平躺吸舌收下巴（3分钟）<span class="tag tag-blue">深层稳定</span></h4>
+<ol class="steps-list"><li>仰卧，后脑勺垫薄书</li><li>舌顶上颚，下巴平行后收2毫米</li><li>感受后脑勺与书本轻压</li><li>保持10秒，重复10次</li></ol>
+<div class="timer-row"><div class="timer-display" id="timer7">03:00</div>
+<button class="btn btn-start" onclick="startTimer('timer7',180)">开始</button>
+<button class="btn btn-reset" onclick="resetTimer('timer7',180)">重置</button></div>
+<div class="effect"><strong>作用：</strong>激活颈深屈肌（DNF），重建颈椎中立位</div></div>
+
+<div class="card exercise-card"><h4>3. 平躺等长抗阻-后侧（3分钟）<span class="tag tag-blue">深层稳定</span></h4>
+<ol class="steps-list"><li>仰卧，双手十指交叉托后脑勺</li><li>头向后发力，双手向前抵抗（5%力量）</li><li>头部不产生位移，保持6秒</li><li>重复8次</li></ol>
+<div class="timer-row"><div class="timer-display" id="timer8">03:00</div>
+<button class="btn btn-start" onclick="startTimer('timer8',180)">开始</button>
+<button class="btn btn-reset" onclick="resetTimer('timer8',180)">重置</button></div>
+<div class="effect"><strong>作用：</strong>通过神经自体抑制机制，降低颈部深层痉挛</div></div>
+
+<div class="card exercise-card"><h4>4. 平躺双指眼球追踪（3分钟）<span class="tag tag-purple">前庭</span></h4>
+<ol class="steps-list"><li>仰卧，双臂伸直举大拇指，与肩同宽</li><li>头颅保持绝对静止，眼球平滑从左拇指横移到右拇指（4秒）</li><li>定格1秒后4秒移回</li><li>8次/组，3组</li></ol>
+<div class="timer-row"><div class="timer-display" id="timer9">03:00</div>
+<button class="btn btn-start" onclick="startTimer('timer9',180)">开始</button>
+<button class="btn btn-reset" onclick="resetTimer('timer9',180)">重置</button></div>
+<div class="effect"><strong>作用：</strong>躺姿安全训练前庭眼反射，不触发眩晕</div></div>
+
+<div class="card exercise-card"><h4>5. 眼神死锁微动摇点脑（3分钟）<span class="tag tag-purple">前庭</span></h4>
+<ol class="steps-list"><li>仰卧，左手拇指竖在眼前30cm</li><li>双眼死盯拇指，头面极慢右转2度→左转2度</li><li>视线始终不离开目标</li><li>2组x10次</li></ol>
+<div class="timer-row"><div class="timer-display" id="timer10">03:00</div>
+<button class="btn btn-start" onclick="startTimer('timer10',180)">开始</button>
+<button class="btn btn-reset" onclick="resetTimer('timer10',180)">重置</button></div>
+<div class="effect"><strong>作用：</strong>前庭-颈椎联合训练，提升视觉稳定性</div></div>
+
+<div class="card exercise-card"><h4>6. 四足跪姿胸椎转体（3分钟）<span class="tag tag-green">灵活性</span></h4>
+<ol class="steps-list"><li>四点跪姿，一手扣后脑勺</li><li>呼气肘向下向内，吸气胸椎旋转打开</li><li>眼睛盯肘尖</li><li>双侧各10次</li></ol>
+<div class="timer-row"><div class="timer-display" id="timer11">03:00</div>
+<button class="btn btn-start" onclick="startTimer('timer11',180)">开始</button>
+<button class="btn btn-reset" onclick="resetTimer('timer11',180)">重置</button></div>
+<div class="effect"><strong>作用：</strong>恢复胸椎旋转活动度，解除颈椎代偿</div></div>
+
+<div class="card exercise-card"><h4>7. 仰卧位极端眼动屏息抑制（4分钟）<span class="tag tag-purple">前庭/枕下肌</span></h4>
+<ol class="steps-list"><li>仰卧平躺，屈膝踩地，后脑勺垫薄书</li><li>头部保持绝对静止</li><li>双眼极限看右下角，鼻吸气4秒，屏息3秒</li><li>嘴长呼气8秒，眼球缓慢回正</li><li>换左下角重复，左右各5次</li></ol>
+<div class="timer-row"><div class="timer-display" id="timer12">04:00</div>
+<button class="btn btn-start" onclick="startTimer('timer12',240)">开始</button>
+<button class="btn btn-reset" onclick="resetTimer('timer12',240)">重置</button></div>
+<div class="effect"><strong>作用：</strong>眼-颈反射抑制：极限眼动+屏息+呼气诱发枕下肌群自发性放松（PIR效应），不触发眩晕的前提下下调上颈椎张力</div></div>
+
+<div class="card exercise-card"><h4>8. 仰卧位微点头联动平滑追踪（4分钟）<span class="tag tag-purple">前庭/DNF</span></h4>
+<ol class="steps-list"><li>仰卧，手持卡片（或手指）置于眼前40cm</li><li>舌顶上颚，做极小收下巴（2毫米，胸锁乳突肌不发硬）</li><li>保持收下巴力量，眼球平滑追踪卡片左右移动（各15度）</li><li>连续追踪往返5次/组，3组</li></ol>
+<div class="timer-row"><div class="timer-display" id="timer13">04:00</div>
+<button class="btn btn-start" onclick="startTimer('timer13',240)">开始</button>
+<button class="btn btn-reset" onclick="resetTimer('timer13',240)">重置</button></div>
+<div class="effect"><strong>作用：</strong>颈深屈肌稳定+眼球平滑追踪联合训练，重建大脑多感知通道整合，建立抗晕"护城河"</div></div>
+</div>
+</div>
+
+<nav class="bottom-nav">
+<button class="active" id="nav1" onclick="goStep(1)">评估</button>
+<button id="nav2" onclick="goStep(2)">松解</button>
+<button id="nav3" onclick="goStep(3)">训练</button>
+</nav>
+
+<script>
+var timers={};
+var intervals={};
+
+function goStep(n){
+  document.querySelectorAll('.step-page').forEach(function(el){el.classList.remove('active')});
+  document.getElementById('step'+n).classList.add('active');
+  document.querySelectorAll('.bottom-nav button').forEach(function(el){el.classList.remove('active')});
+  document.getElementById('nav'+n).classList.add('active');
+  for(var i=1;i<=3;i++){
+    var seg=document.getElementById('seg'+i);
+    seg.classList.remove('active','done');
+    if(i<n)seg.classList.add('done');
+    if(i===n)seg.classList.add('active');
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function fmtTime(s){
+  var m=Math.floor(s/60);
+  var sec=s%60;
+  return (m<10?'0'+m:m)+':'+(sec<10?'0'+sec:sec);
+}
+
+function updateDisplay(id,s){
+  var el=document.getElementById(id);
+  if(el)el.textContent=fmtTime(s);
+}
+
+function startTimer(id,total){
+  if(intervals[id])clearInterval(intervals[id]);
+  var disp=document.getElementById(id);
+  if(disp)disp.classList.remove('warning');
+  if(timers[id]===undefined||timers[id]<=0)timers[id]=total;
+  intervals[id]=setInterval(function(){
+    timers[id]--;
+    updateDisplay(id,timers[id]);
+    if(timers[id]<=0){
+      clearInterval(intervals[id]);
+      intervals[id]=null;
+      var d=document.getElementById(id);
+      if(d){d.classList.add('warning');d.textContent='00:00'}
+      if(navigator.vibrate)navigator.vibrate([200,100,200]);
+    }
+  },1000);
+}
+
+function resetTimer(id,total){
+  if(intervals[id]){clearInterval(intervals[id]);intervals[id]=null}
+  timers[id]=total;
+  updateDisplay(id,total);
+  var d=document.getElementById(id);
+  if(d)d.classList.remove('warning');
+}
+
+document.addEventListener('dblclick',function(e){
+  if(e.target.tagName!=='TEXTAREA'&&e.target.tagName!=='INPUT')e.preventDefault();
+},{passive:false});
+</script>
+</body>
+</html>
