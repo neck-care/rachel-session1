@@ -56,6 +56,14 @@ nav.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card-bg);
 nav.bottom-nav button{flex:1;padding:14px 8px;border:none;background:none;font-size:.82rem;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s}
 nav.bottom-nav button.active{color:var(--primary);border-top:3px solid var(--primary);background:var(--primary-bg)}
 nav.bottom-nav button:active{background:var(--primary-lighter)}
+.export-bar{position:fixed;bottom:62px;left:0;right:0;max-width:720px;margin:0 auto;display:flex;gap:8px;padding:8px 16px;background:var(--card-bg);border-top:1px solid var(--border);z-index:99}
+.export-bar .btn-export{flex:1;padding:10px;border-radius:8px;border:none;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-save{background:var(--primary-bg);color:var(--text);border:1px solid var(--border)}
+.btn-save:active{background:var(--primary-lighter)}
+.btn-export-data{background:var(--primary);color:#fff}
+.btn-export-data:active{background:var(--primary-light)}
+.toast{position:fixed;bottom:140px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);color:#fff;padding:8px 20px;border-radius:20px;font-size:.82rem;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
 </style>
 </head>
 <body>
@@ -76,55 +84,55 @@ nav.bottom-nav button:active{background:var(--primary-lighter)}
 <div class="card eval-card">
 <div class="eval-head"><span class="eval-num">1</span><h3>颈椎旋转活动度</h3></div>
 <ol class="steps-list"><li>坐姿，缓慢向左转头至受限停</li><li>缓慢向右转头至受限停</li><li>对比左右旋转幅度</li></ol>
-<div class="record-row"><label>你记录：</label><textarea placeholder="左转___度（是否受限？），右转___度（是否受限？），哪侧更受限？"></textarea></div>
+<div class="record-row"><label>你记录：</label><textarea id="eval1" placeholder="左转___度（是否受限？），右转___度（是否受限？），哪侧更受限？" oninput="saveData()"></textarea></div>
 </div>
 
 <div class="card eval-card">
 <div class="eval-head"><span class="eval-num">2</span><h3>头后仰症状</h3></div>
 <ol class="steps-list"><li>坐姿，头微微后仰</li><li>感受是否有眩晕、不稳感</li></ol>
-<div class="record-row"><label>你记录：</label><textarea placeholder="是否诱发眩晕？（1-5分打分）"></textarea></div>
+<div class="record-row"><label>你记录：</label><textarea id="eval2" placeholder="是否诱发眩晕？（1-5分打分）" oninput="saveData()"></textarea></div>
 </div>
 
 <div class="card eval-card">
 <div class="eval-head"><span class="eval-num">3</span><h3>颈部肌力</h3></div>
 <ol class="steps-list"><li>平躺，收下巴，脖子略抬起离开床面</li><li>保持此姿势，记录坚持秒数</li></ol>
-<div class="record-row"><label>你记录：</label><textarea placeholder="能坚持几秒？目标10秒以上"></textarea></div>
+<div class="record-row"><label>你记录：</label><textarea id="eval3" placeholder="能坚持几秒？目标10秒以上" oninput="saveData()"></textarea></div>
 </div>
 
 <div class="card eval-card">
 <div class="eval-head"><span class="eval-num">4</span><h3>肩胛稳定性 — 靠墙天使</h3></div>
 <ol class="steps-list"><li>靠墙站立，后脑勺、肩胛、臀、脚跟贴墙</li><li>双臂做W形→Y形上滑（天使翅膀动作）</li><li>观察肩胛骨是否离开墙面</li></ol>
-<div class="record-row"><label>你记录：</label><textarea placeholder="后脑勺/肩胛/臀/脚跟是否都能贴墙？手臂上滑时肩胛是否离开墙面？几处离开？"></textarea></div>
+<div class="record-row"><label>你记录：</label><textarea id="eval4" placeholder="后脑勺/肩胛/臀/脚跟是否都能贴墙？手臂上滑时肩胛是否离开墙面？几处离开？" oninput="saveData()"></textarea></div>
 </div>
 
 <div class="card eval-card">
 <div class="eval-head"><span class="eval-num">5</span><h3>核心控制 — 死虫式</h3></div>
 <ol class="steps-list"><li>仰卧，抬起四肢呈桌面姿势</li><li>对侧手脚同时缓慢下放（右手+左脚下放）</li><li>观察腰部是否紧贴地面</li></ol>
-<div class="record-row"><label>你记录：</label><textarea placeholder="腰部是否紧贴地面？对侧控制是否稳定？"></textarea></div>
+<div class="record-row"><label>你记录：</label><textarea id="eval5" placeholder="腰部是否紧贴地面？对侧控制是否稳定？" oninput="saveData()"></textarea></div>
 </div>
 
 <div class="card eval-card">
 <div class="eval-head"><span class="eval-num">6</span><h3>体态观察</h3></div>
 <ol class="steps-list"><li>侧面站立，自然放松</li><li>观察耳垂与肩峰连线（铅垂线参考）</li><li>平躺观察肩胛骨是否贴合地面</li></ol>
-<div class="record-row"><label>你记录：</label><textarea placeholder="是否有头前倾？（耳垂-肩峰连线），平躺肩胛骨是否贴合地面？"></textarea></div>
+<div class="record-row"><label>你记录：</label><textarea id="eval6" placeholder="是否有头前倾？（耳垂-肩峰连线），平躺肩胛骨是否贴合地面？" oninput="saveData()"></textarea></div>
 </div>
 
 <div class="card eval-card">
 <div class="eval-head"><span class="eval-num">7</span><h3>前庭 — 单腿站立</h3></div>
 <ol class="steps-list"><li>闭眼，双手叉腰，单腿站立</li><li>先左腿，后右腿，各一次</li><li>记录坚持时间与摇晃程度</li></ol>
-<div class="record-row"><label>你记录：</label><textarea placeholder="左腿___秒，右腿___秒，有无摇晃？"></textarea></div>
+<div class="record-row"><label>你记录：</label><textarea id="eval7" placeholder="左腿___秒，右腿___秒，有无摇晃？" oninput="saveData()"></textarea></div>
 </div>
 
 <div class="card eval-card">
 <div class="eval-head"><span class="eval-num">8</span><h3>前庭 — 转圈</h3></div>
 <ol class="steps-list"><li>闭眼，原地缓慢转一圈</li><li>先向左转，后向右转，各一次</li><li>感受转后眩晕程度</li></ol>
-<div class="record-row"><label>你记录：</label><textarea placeholder="转后是否更晕？左右有无差异？"></textarea></div>
+<div class="record-row"><label>你记录：</label><textarea id="eval8" placeholder="转后是否更晕？左右有无差异？" oninput="saveData()"></textarea></div>
 </div>
 
 <div class="card eval-card">
 <div class="eval-head"><span class="eval-num">9</span><h3>症状触发</h3></div>
 <ol class="steps-list"><li>快速从坐到站，重复3次</li><li>观察是否诱发头晕或不稳感</li></ol>
-<div class="record-row"><label>你记录：</label><textarea placeholder="是否诱发头晕/不稳？（1-5分打分）"></textarea></div>
+<div class="record-row"><label>你记录：</label><textarea id="eval9" placeholder="是否诱发头晕/不稳？（1-5分打分）" oninput="saveData()"></textarea></div>
 </div>
 </div>
 
@@ -234,6 +242,11 @@ nav.bottom-nav button:active{background:var(--primary-lighter)}
 <button id="nav2" onclick="goStep(2)">松解</button>
 <button id="nav3" onclick="goStep(3)">训练</button>
 </nav>
+<div class="export-bar">
+<button class="btn-export btn-save" onclick="saveData();showToast('已保存')">保存</button>
+<button class="btn-export btn-export-data" onclick="exportData()">导出评估记录</button>
+</div>
+<div class="toast" id="toast"></div>
 
 <script>
 var timers={};
@@ -293,6 +306,71 @@ function resetTimer(id,total){
 document.addEventListener('dblclick',function(e){
   if(e.target.tagName!=='TEXTAREA'&&e.target.tagName!=='INPUT')e.preventDefault();
 },{passive:false});
+
+var STORAGE_KEY='rachel_session1_eval';
+var evalNames=[
+  '颈椎旋转活动度',
+  '头后仰症状',
+  '颈部肌力',
+  '肩胛稳定性—靠墙天使',
+  '核心控制—死虫式',
+  '体态观察',
+  '前庭—单腿站立',
+  '前庭—转圈',
+  '症状触发'
+];
+
+function saveData(){
+  var data={};
+  for(var i=1;i<=9;i++){
+    var el=document.getElementById('eval'+i);
+    if(el)data['eval'+i]=el.value;
+  }
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}catch(e){}
+}
+
+function loadData(){
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw)return;
+    var data=JSON.parse(raw);
+    for(var key in data){
+      var el=document.getElementById(key);
+      if(el)el.value=data[key];
+    }
+  }catch(e){}
+}
+
+function exportData(){
+  var lines=['Rachel 第一节线上课程 — 评估记录','日期：'+new Date().toLocaleDateString('zh-CN'),''];
+  for(var i=1;i<=9;i++){
+    var el=document.getElementById('eval'+i);
+    var val=el?el.value:'（未填写）';
+    lines.push('【'+i+'. '+evalNames[i-1]+'】');
+    lines.push(val||'（未填写）');
+    lines.push('');
+  }
+  var text=lines.join('\n');
+  var blob=new Blob([text],{type:'text/plain;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download='Rachel_第一节评估记录_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('已导出评估记录');
+}
+
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show')},2000);
+}
+
+loadData();
 </script>
 </body>
 </html>
